@@ -25,7 +25,7 @@ things that didn't work.
 
 - NVIDIA H200 nodes (8 GPUs/node), Kubernetes or OpenShift with GPU
   operator
-- vLLM 0.23.0 
+- vLLM ≥ v0.23.0 (GLM-5.2 model support starts at v0.23.0)
 - HuggingFace token secret `llm-d-hf-token` (key `HF_TOKEN`)
 - ~756 GB storage per node for FP8 weights
 

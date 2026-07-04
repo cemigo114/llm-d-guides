@@ -52,10 +52,8 @@ spec:
     spec:
       containers:
       - name: vllm
-        # Measured on nightly (June 2026). For reproducibility, pin a
-        # release tag >= v0.11.1 (first release with /v1/messages,
-        # glm47/glm45 parsers, and dotted --speculative-config.* args).
-        image: vllm/vllm-openai:nightly
+        # GLM-5.2 requires vLLM >= v0.23.0.
+        image: vllm/vllm-openai:v0.23.0
         command: ["/bin/bash", "-c"]
         args:
         - |
@@ -197,7 +195,7 @@ Expected: `Tool: read_file`, `Args: {"path": "test.txt"}`
 ## Step 4: Connect Claude Code
 
 Claude Code only speaks the Anthropic Messages API (`/v1/messages`).
-vLLM serves this endpoint natively since v0.11.1.
+vLLM serves this endpoint natively (requires v0.23.0+ for GLM-5.2).
 
 ```bash
 # With port-forward already running on localhost:8000

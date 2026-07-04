@@ -21,7 +21,7 @@
 
 **Claude Code only speaks the Anthropic Messages API** (`/v1/messages`). It does NOT use `/v1/chat/completions`. Setting `OPENAI_BASE_URL` has no effect on Claude Code.
 
-**vLLM serves both API formats** from the same process. The `/v1/messages` endpoint has been available since vLLM v0.11.1. From v0.23.0+, both API formats go through the same unified `Parser.parse()` interface, sharing the `glm47` tool-call parser and `glm45` reasoning parser.
+**vLLM serves both API formats** from the same process. GLM-5.2 requires vLLM v0.23.0+, which includes the `/v1/messages` endpoint and the unified `Parser.parse()` interface sharing the `glm47` tool-call parser and `glm45` reasoning parser.
 
 **inference-perf uses the OpenAI API** (`/v1/chat/completions`) for load generation. This is a different client hitting the same vLLM server.
 
@@ -29,7 +29,7 @@
 
 ## Prerequisites
 
-- vLLM v0.11.1+ for `/v1/messages` support (v0.23.0+ recommended for unified parser)
+- vLLM v0.23.0+ (minimum for GLM-5.2 model support)
 - GLM 5.2 deployed via vLLM with tool-call parsers enabled
 - `kubectl` access to the cluster (or direct network access to vLLM)
 - Claude Code CLI installed (`npm install -g @anthropic-ai/claude-code` or via [claude.com/code](https://claude.com/code))
@@ -74,7 +74,7 @@ curl -s http://localhost:8000/v1/messages \
   }' | python3 -c "import json,sys; r=json.load(sys.stdin); print(r['content'][0]['text'][:100])"
 ```
 
-Both should return model output. If `/v1/messages` fails with 404, your vLLM version may be too old — upgrade to v0.11.1+ (v0.23.0+ recommended for unified parser).
+Both should return model output. If `/v1/messages` fails with 404, your vLLM version may be too old — GLM-5.2 requires v0.23.0+.
 
 ## Step 2: Create the Claude Code environment file
 
@@ -226,4 +226,4 @@ Known issue ([vLLM #41967](https://github.com/vllm-project/vllm/issues/41967)). 
                        └─────────────────────────────┘
 ```
 
-The `/v1/messages` endpoint is available from vLLM v0.11.1+. From v0.23.0+, both API formats go through the same unified `Parser.parse()` interface. The Anthropic Messages API handler translates the request format, but the model execution, tool-call parsing, and reasoning extraction are identical.
+GLM-5.2 requires vLLM v0.23.0+. Both `/v1/messages` and `/v1/chat/completions` go through the same unified `Parser.parse()` interface. The Anthropic Messages API handler translates the request format, but the model execution, tool-call parsing, and reasoning extraction are identical.

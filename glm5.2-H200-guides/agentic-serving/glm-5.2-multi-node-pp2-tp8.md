@@ -20,9 +20,7 @@ one node can give. If the model fits on one node, prefer the
 - **TP=8** inside each node over NVLink.
 - **LeaderWorkerSet**: leader (node-rank 0) serves the API; the
   worker joins headless via `--nnodes 2 --node-rank 1`.
-- vLLM ≥ v0.18.0 (manifest uses `--distributed-timeout-seconds`,
-  added in v0.18.0; the multi-node `--nnodes/--node-rank/
-  --master-addr/--headless` flags exist since v0.11.1).
+- vLLM ≥ v0.23.0 (minimum version for GLM-5.2 model support).
 
 ## Networking: RoCE
 

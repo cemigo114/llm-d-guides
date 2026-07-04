@@ -2,9 +2,7 @@
 #
 # Requirements:
 # - LeaderWorkerSet controller installed (kubernetes-sigs/lws)
-# - vLLM >= v0.18.0 (--distributed-timeout-seconds; the native
-#   multi-node flags --nnodes/--node-rank/--master-addr/--headless
-#   exist since v0.11.1). Pin the image to a release tag >= v0.18.0.
+# - vLLM >= v0.23.0 (minimum version for GLM-5.2 model support).
 # - Secret llm-d-hf-token with key HF_TOKEN in the target namespace
 # - For RoCE/InfiniBand: uncomment the RDMA blocks below and set the
 #   interface/HCA names for your fabric (values are provider-specific).
@@ -24,8 +22,7 @@ spec:
       spec:
         containers:
           - name: vllm-leader
-            # Pin to a release >= v0.18.0 before shipping to prod.
-            image: vllm/vllm-openai:latest
+            image: vllm/vllm-openai:v0.23.0
             env:
               - name: HF_TOKEN
                 valueFrom:
@@ -102,7 +99,7 @@ spec:
       spec:
         containers:
           - name: vllm-worker
-            image: vllm/vllm-openai:latest
+            image: vllm/vllm-openai:v0.23.0
             env:
               - name: HF_TOKEN
                 valueFrom:

@@ -36,9 +36,7 @@ vllm serve "zai-org/GLM-5.2-FP8" \
   --speculative-config '{"method":"mtp","num_speculative_tokens":5,"draft_tensor_parallel_size":8}'
 ```
 
-Requires vLLM ≥ v0.11.1 (`--max-cudagraph-capture-size` and JSON
-`--speculative-config` with `draft_tensor_parallel_size` are top-level
-args from that release).
+Requires vLLM ≥ v0.23.0 (minimum version for GLM-5.2 model support).
 
 ### Why Each Knob
 
