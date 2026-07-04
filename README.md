@@ -21,10 +21,3 @@ on 8×H200 nodes:
 Plus: [connecting Claude Code to vLLM](guides/agentic-serving/claude-code-vllm-connection-guide.md)
 via the native `/v1/messages` endpoint.
 
-## Ground Rules
-
-Every guide states where its numbers came from (cluster, weights,
-vLLM build). Claims that couldn't be pinned to a source are marked
-`NEEDS VERIFICATION` inline. vLLM flags are verified against the
-[vLLM codebase](https://github.com/vllm-project/vllm) with minimum
-version requirements noted.
