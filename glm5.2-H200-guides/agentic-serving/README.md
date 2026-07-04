@@ -12,8 +12,6 @@ things that didn't work.
 | 2 | Single node, throughput-tuned | [8K/1K optimized config](glm-5.2-single-node-8k1k-optimized.md) | Short-context, high-turnover (ISL/OSL 8000/1000, C=1–16) | TTFT p50 ~0.7 s flat across sweep; 649 output tok/s at C=16 | guidellm |
 | 3 | 2 nodes, PP=2 TP=8, RoCE | [Multi-node guide](glm-5.2-multi-node-pp2-tp8.md) | Model/KV beyond one node's HBM | ~8.6K tok/s at 100K ISL; +16% vs GLM-5 from FP8 KV | inference-perf |
 
-> **⚠️ Benchmark tool note:** The P/D disaggregation results (1P2D and 2P1D Wide EP configurations) were collected using **NVIDIA AIPerf**, not inference-perf or guidellm. AIPerf numbers are not directly comparable to inference-perf results — different load generators, different measurement methodology. Do not mix them in the same table or chart.
-
 ## Which One?
 
 - Model fits on one node and you serve agents → **1**.
