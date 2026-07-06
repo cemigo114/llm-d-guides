@@ -358,9 +358,9 @@ Key metrics:
 - `vllm:prompt_tokens_total` = total prefill tokens processed
 - `vllm:generation_tokens_total` = total output tokens generated
 
-## What We Measured (psap-fire-athena, June 2026)
+## What We Measured 
 
-Cluster: psap-fire-athena, 1×8×H200, co-located TP=8.
+Cluster: 1×8×H200, co-located TP=8.
 vLLM nightly, GLM-5.2-FP8, MTP 5 tokens, prefix caching on.
 
 ### inference-perf Weka Trace Replay (50 sessions, 131K max-model-len)
