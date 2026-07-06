@@ -83,7 +83,7 @@ Tool calling and Claude Code connection work exactly as in the
 
 ## Measured Results
 
-**Cluster:** Janus (psap-de-h200-cluster), 2× 8×H200, OpenShift 4.21.11.
+**Cluster**: 2× 8×H200, OpenShift 4.21.11.
 **Weights:** dummy (FP8 layout) — these numbers validate the topology
 and scheduler behavior, not end-quality throughput. Re-run with real
 weights before quoting externally.
@@ -128,22 +128,6 @@ FP8 KV cache (`--kv-cache-dtype fp8`) is the primary differentiator:
 - **Weights download twice** (once per node) unless you back the HF
   cache with shared storage.
 
-## Appendix: KV Offloading — Tested, Not Recommended at This Scale
-
-Measured at 100K ISL, C=8 (single-node TP=8 baseline 11,704 tok/s):
-
-| Strategy | Result |
-| --- | --- |
-| CPU offload `--cpu-offload-gb 20` | −75% throughput, +100% TTFT P50, +314% ITL P99. CPU DRAM (~100 GB/s) vs H200 HBM (~4.8 TB/s) makes spill pervasive. `--cpu-offload-gb 50` OOM-killed the pod (50 GB pinned × 8 TP workers > 512Gi limit). |
-| Mooncake, TCP, `embedded` mode | −60% throughput — 16 in-process pool managers contending over GB-scale KV blocks. |
-| Mooncake, RDMA, `embedded` mode | ~50× slower; killed. |
-
-The untested-but-correct Mooncake deployment is `standalone-store`
-mode (one dedicated `mooncake_client` per node owning the pool; vLLM
-workers as pure RDMA requesters). Until someone measures that,
-vLLM's built-in prefix caching is the recommendation: it delivered a
-63% TTFT P50 reduction on shared-prefix workloads at zero
-operational complexity.
 
 ## Cleanup
 
